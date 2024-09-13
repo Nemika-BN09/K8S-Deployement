@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flower-app-deployment
+  labels:
+    app: flower-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flower-app
+  template:
+    metadata:
+      labels:
+        app: flower-app
+    spec:
+      containers:
+        - name: flower-app
+          image: clahandevops/flower-img:latest
+          ports:
+            - containerPort: 3015
+          env:
+            - name: PORT
+              value: "3015"
+            - name: MONGODB_URI
+              value: "mongodb://mongo:27017/AFF-Docker"
+            - name: SESSION_SECRET
+              value: "your-secret-key"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flower-app-service
+spec:
+  selector:
+    app: flower-app
+  ports:
+    - protocol: TCP
+      port: 3015
+      targetPort: 3015
+  type: LoadBalancer
