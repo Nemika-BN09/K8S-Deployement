@@ -26,6 +26,13 @@ spec:
               value: "mongodb://mongo:27017/AFF-Docker"
             - name: SESSION_SECRET
               value: "your-secret-key"
+          resources:
+            requests:
+              memory: "256Mi"   
+              cpu: "250m"      
+            limits:
+              memory: "512Mi"   
+              cpu: "500m"      
 ---
 apiVersion: v1
 kind: Service
