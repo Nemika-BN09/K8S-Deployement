@@ -24,9 +24,13 @@ spec:
               value: "root"
             - name: MONGO_INITDB_ROOT_PASSWORD
               value: "example"
-          volumes:
+          volumeMounts:
+            - name: mongo-storage
+              mountPath: /data/db
+      volumes:
         - name: mongo-storage
-          
+          persistentVolumeClaim:
+            claimName: mongo-pvc
 ---
 apiVersion: v1
 kind: Service
